@@ -1,9 +1,9 @@
-import React from 'react'
-import {Route, BrowserRouter as Router} from 'react-router-dom'
-import MainPage from "../mainPage/mainPage";
-import DetailsPage from "../detailsPage/detailsPage";
-import PageLayout from "../pageLayout/pageLayout";
-import Container from "../container/container";
+import React from 'react';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+import MainPage from '../MainPage/MainPage';
+import DetailsPage from '../DetailsPage/DetailsPage';
+import PageLayout from '../PageLayout/PageLayout';
+import Container from '../Container/Container';
 
 const AppRouter = (
     <Router>
