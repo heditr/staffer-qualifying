@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { NavigationProvider, Link, Route } from './Navigation.js'
+import PageLayout from "./components/pageLayout/pageLayout";
+import Container from "./components/container/container";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+  render() {
+    return (
+        <PageLayout>
+            <Container></Container>
+        </PageLayout>
+    )
+  }
 }
 
-export default App;
+export class AppLayout extends React.PureComponent {
+  render() {
+    return (
+        <div>
+          <nav>
+            <Link href="/" activeStyle={{color: 'red'}}>
+              Home
+            </Link>
+            <Link href="/browse/" activeStyle={{color: 'red'}}>
+              Browse
+            </Link>
+          </nav>
+          <main>
+            {this.props.children}
+          </main>
+        </div>
+    )
+  }
+}
