@@ -3,7 +3,9 @@ import { useStateValue } from '../State';
 import Cell from '../Cell/Cell';
 
 export default function Rows() {
-    const [{ data }] = useStateValue();
+    const [{ data, cellHeights }] = useStateValue();
+
+    console.log({ cellHeights });
     return (
         <tbody>
             {data.map((row, rowIndex) => (
@@ -13,6 +15,8 @@ export default function Rows() {
                             <Cell
                                 key={`${rowIndex}-${cellIndex}`}
                                 content={data[rowIndex][cellIndex]}
+                                fixed={cellIndex === 0}
+                                height={cellHeights.length > 0 && cellHeights[cellIndex]}
                             />
                         ))}
                 </tr>

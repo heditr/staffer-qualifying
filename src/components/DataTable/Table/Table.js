@@ -1,20 +1,39 @@
-import React from 'react';
-import { TableProvider } from '../State';
-import Thead from '../Thead/Thead';
-import Rows from '../Rows/Rows';
+import React, { useCallback, useEffect, useState } from 'react';
+import './index.scss';
+import { useStateValue } from '../State';
+import { setCellHeights, setTableRef } from '../actionTypes';
 
-const reducer = (state, action) => {
-    console.log({ action });
-    return state;
-};
+function getTallestCellHeights(tableRef) {
+    if (!tableRef) {
+        return [];
+    }
 
-export default function Table({ headings, data }) {
+    const rows = Array.from(tableRef.getElementsByTagName('tr'));
+    return rows.map((row) => {
+        const fixedCell = (row.childNodes)[0];
+        return Math.max(row.clientHeight, fixedCell.clientHeight);
+    }) || [];
+}
+
+export default function Table({ children }) {
+    const [{ tableRef }, dispatch] = useStateValue();
+    const [, setCellHeightsState] = useState([]);
+
+    useEffect(() => {
+        const cellHeights = getTallestCellHeights(tableRef);
+        setCellHeightsState(cellHeights);
+        dispatch(setCellHeights(cellHeights));
+    }, [tableRef]);
+
+    const tableRefSet = useCallback((node) => {
+        if (node !== null) {
+            dispatch(setTableRef(node));
+        }
+    }, []);
+
     return (
-        <TableProvider initialState={{ headings, data }} reducer={reducer}>
-            <table>
-                <Thead/>
-                <Rows />
-            </table>
-        </TableProvider>
+        <table className='it-table' ref={tableRefSet}>
+            {children}
+        </table>
     );
 }
