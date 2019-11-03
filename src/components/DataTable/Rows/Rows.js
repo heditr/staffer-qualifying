@@ -1,6 +1,7 @@
 import React from 'react';
 import { useStateValue } from '../State';
 import Cell from '../Cell/Cell';
+import Button from '../../Button/Button';
 
 export default function Rows() {
     const [{ data, cellHeights }] = useStateValue();
@@ -18,7 +19,14 @@ export default function Rows() {
                                 fixed={cellIndex === 0}
                                 height={cellHeights.length > 0 && cellHeights[cellIndex]}
                             />
-                        ))}
+                        ))
+                    }
+                    {
+                        <Cell
+                            content={<Button handleClick={() => { console.log(data[rowIndex]); }}
+                                text="Candidate Details" /> }
+                        />
+                    }
                 </tr>
             ))}
         </tbody>
