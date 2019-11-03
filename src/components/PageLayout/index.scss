@@ -1,0 +1,9 @@
+.it__layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  &--shorter {
+    width: 80%;
+  }
+}
